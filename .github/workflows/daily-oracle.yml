@@ -30,3 +30,19 @@ jobs:
           git add reports/ README.md
           git commit -m "Oracle Update: Intelligence Distilled ($(date +'%Y-%m-%d'))" || exit 0
           git push origin main
+
+      - name: Notify via WhatsApp
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          LATEST_REPORT=$(ls -t reports/*.md | head -n 1 | xargs basename)
+          MESSAGE="🧠 *Tech Oracle Intelligence Unlocked*\nNew report available: *$LATEST_REPORT*"
+          
+          # Create notification file in the relay repo using GitHub API
+          JSON_CONTENT=$(printf '{"message": "%s"}' "$MESSAGE")
+          B64_CONTENT=$(echo -n "$JSON_CONTENT" | base64 -w 0)
+          
+          gh api --method PUT /repos/psycho237-prog/perpetual-node-relay/contents/notifications/notif-oracle-$(date +%s).json \
+            -f message="WhatsApp Notify" \
+            -f content="$B64_CONTENT"
