@@ -1,0 +1,32 @@
+name: Daily Tech Oracle Sync
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # Every day at 6 AM UTC
+  workflow_dispatch:
+
+jobs:
+  oracle-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Generate Intelligence Report
+        run: python oracle.py
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add reports/ README.md
+          git commit -m "Oracle Update: Intelligence Distilled ($(date +'%Y-%m-%d'))" || exit 0
+          git push origin main
