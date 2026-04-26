@@ -39,7 +39,7 @@ jobs:
       - name: Notify via WhatsApp
         if: success()
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           LATEST_REPORT=$(ls -t reports/*.md | head -n 1 | xargs basename)
           MESSAGE="🧠 *Tech Oracle Intelligence Unlocked*\nNew report available: *$LATEST_REPORT*"
