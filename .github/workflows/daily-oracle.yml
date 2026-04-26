@@ -5,6 +5,9 @@ on:
     - cron: '0 6 * * *' # Every day at 6 AM UTC
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   oracle-run:
     runs-on: ubuntu-latest
@@ -24,12 +27,14 @@ jobs:
         run: python oracle.py
 
       - name: Commit and Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add reports/ README.md
           git commit -m "Oracle Update: Intelligence Distilled ($(date +'%Y-%m-%d'))" || exit 0
-          git push origin main
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
 
       - name: Notify via WhatsApp
         if: success()
