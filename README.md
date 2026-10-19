@@ -1,8 +1,9 @@
 # 🦾 Tech Oracle
 
-Autonomous intelligence hub. [Latest Report (2026-10-18)](./reports/2026-10-18.md)
+Autonomous intelligence hub. [Latest Report (2026-10-19)](./reports/2026-10-19.md)
 
 ## 🗄️ Archives
+- [2026-10-19](./reports/2026-10-19.md)
 - [2026-10-18](./reports/2026-10-18.md)
 - [2026-10-17](./reports/2026-10-17.md)
 - [2026-10-16](./reports/2026-10-16.md)
@@ -12,4 +13,3 @@ Autonomous intelligence hub. [Latest Report (2026-10-18)](./reports/2026-10-18.m
 - [2026-10-12](./reports/2026-10-12.md)
 - [2026-10-11](./reports/2026-10-11.md)
 - [2026-10-10](./reports/2026-10-10.md)
-- [2026-10-09](./reports/2026-10-09.md)
